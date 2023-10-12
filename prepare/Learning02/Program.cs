@@ -26,11 +26,6 @@ class Program
         MyResume.Display();
 
 
-
-
-
-
-
     }
 }
  

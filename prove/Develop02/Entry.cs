@@ -6,10 +6,10 @@ public class Entry
 
     public string Response { get; set; }
 
-    //public DisplayEntry()
-    //{
-        //Console.WriteLine($"({EntryDate}) {Prompt}\nMy response:{Response}");
-
-    //}
+    public int MyProperty { get; set; }
+    public void DisplayPromptResponse()
+    {
+        Console.WriteLine($"({EntryDate}) {Prompt}\n{Response}");
+    }
 
 }    
