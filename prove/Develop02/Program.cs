@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Quic;
+using System.Runtime.InteropServices;
 
 
 class Program
@@ -11,27 +13,37 @@ class Program
     {
     
     //create entry
-    Entry entry = new Entry();
+    // Entry entry = new Entry();
 
     //create a new journal option
     Journal journal = new Journal();
     //asks for a journal name
-    Console.WriteLine("Enter a journal name:");
-    journal.Name = Console.ReadLine();    
-    Console.WriteLine(journal.Name);
+    // Console.WriteLine("Enter a journal name:");
+    // journal.Name = Console.ReadLine();    
+    // Console.WriteLine(journal.Name);
+
 
 
     // Create list of prompts
     List<string> prompts = new List<string>();
 
-    prompts.Add("Did you have any \"I am... therefore:\" statements today? If so, write it down.");    
-    prompts.Add("Did you use technology in the first 60 minutes of waking up today? If so, write down how your day went.");    
-    prompts.Add("I want to develop a routine of pacing. Did you get up, and walk around the room today?");    
-    prompts.Add("In this society, our brains do not have time to decompress anymore. Did you have time to think today? If not, what can you do to find time?");    
-    prompts.Add("I want to replace some consumption with production. Did you create something today? If not, what would you like to create at the end of the day? (Ideas; write, blender)");    
+    prompts.Add("Did you have any \"I am... therefore:\" statements today? If so, write it down.\n");    
+    prompts.Add("Did you use technology in the first 60 minutes of waking up today? If so, write down how your day went.\n");    
+    prompts.Add("I want to develop a routine of pacing. Did you get up, and walk around the room today?\n");    
+    prompts.Add("In this society, our brains do not have time to decompress anymore. Did you have time to think today? If not, what can you do to find time?\n");    
+    prompts.Add("I want to replace some consumption with production. Did you create something today? If not, what would you like to create at the end of the day? (Ideas; write, blender)\n");    
+
+    // randomizes a prompt
+    static string GetRandomPrompt(List<string> prompts)
+    {
+        Random random = new Random();
+        int index = random.Next(prompts.Count);
+        return prompts[index];
+    }
 
     // 1. Show menu
-    while(true)
+    bool quit = false;
+    while(!quit)
     {
         Console.WriteLine("1. Write");
         Console.WriteLine("2. Display");
@@ -39,106 +51,39 @@ class Program
         Console.WriteLine("4. Save");
         Console.WriteLine("5. Quit");
         Console.WriteLine("What would you like to do?");
-        if (int.TryParse(Console.ReadLine(), out int choice))
+
+        string menu = Console.ReadLine();
         {
-            switch (choice)
+            switch (menu)
             {
-                case 1:
-                    //Random random = new Random();
-                    //int index = random.Next(prompts.Count);
-                    
-                    ShowRandomPrompt(prompts);
-                    //GetEntry();
+                case "1":
+                    string prompt = GetRandomPrompt(prompts);
+                    journal.AddEntry(prompt);
                     break;
 
-                case 2:
-                    entry.DisplayPromptResponse();
+                case "2":
+                    journal.Display();
                     //DisplayJournal(journal);
                     break;
 
-                case 3:
-                    LoadJournal(ref journal);
+                case "3":
+                    journal.LoadJournal();
                     break;
 
-                case 4:
-                    SaveJournal(journal);
+                case "4":
+                    journal.SaveJournal();
+                    Console.WriteLine("Journal Saved.");
                     break;
 
-                case 5:
-                    return;
+                case "5":
+                    quit = true;
+                    break;
 
                 default:
-                    Console.WriteLine("Invalid choice. Try again.");
+                    Console.WriteLine("Oops! Try again.");
                     break;
             }
         }
     }
-
-//----------------   menu output   -------------------//
-
-    //1. Randomize a prompt then show it. Then, get input from user.
-    static void ShowRandomPrompt(List<string> prompts)
-    {
-        //randomize a prompt and then display it
-        Random random = new Random();
-        int index = random.Next(prompts.Count); 
-        Console.WriteLine(prompts[index]);
-        
-
-        //create an entry object//
-        Entry entry = new Entry();
-        //gets response from user
-        entry.Response= Console.ReadLine(); // value user entered
-
-        // get attributes for Entry object
-        entry.EntryDate = DateTime.Now.ToShortDateString();
-        entry.Prompt = (prompts[index]); // value of prompt displayed to user
-
-        Console.WriteLine(entry.Response);
-
-
-        
-    }
-
-
-    //2. Display all contents of Journal
-    static void DisplayJournal(Journal journal) 
-    {
-        entry.DisplayPromptResponse();
-    //     //Console.WriteLine($"Journal for: {journal.Name}");
-    //         foreach (var entry in journal.Entries)
-    //         {
-    //             Console.WriteLine($"Date: {entry.EntryDate}");
-    //             Console.WriteLine($"Prompt: {entry.Prompt}");
-    //             Console.WriteLine($"Response: {entry.Response}\n");
-    //         }
-    }
-    
-    //3. Load Journal from existing file
-     static void LoadJournal(ref Journal journal)
-    {
-        Console.Write("Enter the filename to load: ");
-        string filename = Console.ReadLine();
-
-        if (File.Exists(filename))
-        {
-            Console.WriteLine("Journal loaded from " + filename);
-        }
-        else
-        {
-            Console.WriteLine("File not found.");
-        }
-    }
-
-    //4. Save journal as .txt file
-    static void SaveJournal(Journal journal) 
-    {
-        Console.Write("Enter a filename: ");
-        string filename = Console.ReadLine();
-        File.ReadAllLines(filename);
-
-        Console.WriteLine("Journal saved to " + filename);
-    }
-
     }
 }

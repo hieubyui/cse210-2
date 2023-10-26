@@ -6,10 +6,31 @@ public class Entry
 
     public string Response { get; set; }
 
-    public int MyProperty { get; set; }
-    public void DisplayPromptResponse()
+    public Entry(string prompt, string response, string date)
     {
-        Console.WriteLine($"({EntryDate}) {Prompt}\n{Response}");
+        EntryDate = date;
+        Prompt = prompt;
+        Response = response;
+    }
+
+    public string GetPrompt()
+    {
+        return Prompt;
+    }
+    
+    public string GetResponse()
+    {
+        return Response;
+    }
+
+    public string GetDate()
+    {
+        return EntryDate;
+    }
+
+    public override string ToString()
+    {
+        return $"({EntryDate}) - Q: {Prompt}Response: {Response}";
     }
 
 }    
