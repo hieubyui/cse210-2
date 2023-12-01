@@ -24,13 +24,13 @@ public class Goal
 
     protected void CreateBaseGoal()
     {
-        Console.Write("What is the name of your goal?");
+        Console.Write("What is the name of your goal? ");
         _name = Console.ReadLine();
 
-        Console.Write("Write a short description: \n");
+        Console.Write("Write a short description: ");
         _description = Console.ReadLine();
 
-        Console.Write("How many points should this goal have?");
+        Console.Write("How many points should this goal have? ");
         string inputGoalPoints = (Console.ReadLine());
         _goalPoints = Convert.ToInt32(inputGoalPoints);
 
@@ -40,8 +40,8 @@ public class Goal
 
     public virtual string SaveGoal()
     {
-        string a = "";
-        return a;
+        string line = "";
+        return line;
     }
     public virtual void CreateChildGoal()
     {

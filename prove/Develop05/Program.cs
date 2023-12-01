@@ -22,18 +22,18 @@ class Program
         Console.WriteLine(" 4. Load Goal");
         Console.WriteLine(" 5. Record Event");
         Console.WriteLine(" 6. Quit");
-        Console.WriteLine("\nSelect a choice from the menu: ");
+        Console.WriteLine("Select a choice from the menu: ");
 
         menu = Console.ReadLine();
 
         switch (menu) {
             case "1":
 
-                Console.WriteLine("The Types of Goals are: ");
+                Console.WriteLine("The types of Goals are: ");
                 Console.WriteLine(" 1. Simple Goal");
                 Console.WriteLine(" 2. Eternal Goal");
                 Console.WriteLine(" 3. Checklist Goal");
-                Console.WriteLine("Which type of goal would you like to create?");
+                Console.WriteLine("Which type of goal would you like to create? ");
                 string goalType = Console.ReadLine();
 
                 switch (goalType) {
@@ -63,7 +63,7 @@ class Program
                 break;
 
             case "2":
-                goals.ListGoal();
+                goals.ListGoals();
                 break;
 
             case "3":

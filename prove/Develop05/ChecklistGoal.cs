@@ -25,7 +25,7 @@ public class ChecklistGoal : Goal
     {
         CreateBaseGoal();
 
-        Console.Write("How many times does this goal need to be accomplished for a bonus? ");
+        Console.Write("# of times this goal needs to accomplish for bonus points: ");
         string stringChecklistSteps = Console.ReadLine();
         _steps = Convert.ToInt32(stringChecklistSteps);
 
@@ -77,7 +77,7 @@ public class ChecklistGoal : Goal
             statusSymbol = " ";
         }
 
-        Console.Write($"[{statusSymbol}] {_name} ({_description}) -- Currently Completed {_stepCounter}/{_steps}");
+        Console.Write($"[{statusSymbol}] {_name} ({_description})\n Currently Completed {_stepCounter}/{_steps}");
     }
 
     public override string SaveGoal()
